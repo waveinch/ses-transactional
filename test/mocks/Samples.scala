@@ -1,12 +1,12 @@
 package mocks
 
-import models.{BulkEmailAuth, BulkMail, MailParams, SendMailAction}
+import models.{BulkMailAuth, BulkMail, MailParams, SendMailAction}
 
 /**
   * Created by mattia on 12/04/16.
   */
 object Samples {
-  val bulkEmailAuth = BulkEmailAuth("xzc", "zxc", "zxc")
+  val bulkEmailAuth = BulkMailAuth("xzc", "zxc", "zxc")
   val bulkMail = BulkMail(
     subject = "subject",
     html = "html",

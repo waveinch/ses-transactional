@@ -1,11 +1,10 @@
-package mocks
+package services
 
 import javax.inject.Inject
 
 import models.MailStatus
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits._
-import services.MailService
 
 import scala.concurrent.Future
 

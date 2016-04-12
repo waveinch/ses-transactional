@@ -9,6 +9,6 @@ object Formatters {
   implicit val mailParamFormatter = Json.format[MailParams]
   implicit val bulkFormatter = Json.format[BulkMail]
   implicit val mailStatusFormatter = Json.format[MailStatus]
-  implicit val bulkEmailAuthFormatter = Json.format[BulkEmailAuth]
+  implicit val bulkEmailAuthFormatter = Json.format[BulkMailAuth]
   implicit val sendMailAction = Json.format[SendMailAction]
 }

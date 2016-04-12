@@ -1,7 +1,7 @@
 package services
 
 import com.google.inject.Inject
-import models.BulkEmailAuth
+import models.BulkMailAuth
 import models.Formatters._
 import play.api.Configuration
 import play.api.libs.concurrent.Execution.Implicits._
@@ -21,7 +21,7 @@ class AuthServiceImpl @Inject()(
   val backendUrl = configuration.getString(backendUrlKey)
     .getOrElse(throw new Exception(s"Can't find $backendUrlKey key in config"))
 
-  override def isAuthorized(auth: BulkEmailAuth): Future[Boolean] = ws.url(s"$backendUrl/adt/mail/send/valid")
+  override def isAuthorized(auth: BulkMailAuth): Future[Boolean] = ws.url(s"$backendUrl/adt/mail/send/valid")
     .post(Json.toJson(auth))
     .map(_.status == OK)
 }

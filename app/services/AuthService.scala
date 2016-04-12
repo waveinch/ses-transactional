@@ -1,6 +1,6 @@
 package services
 
-import models.BulkEmailAuth
+import models.BulkMailAuth
 
 import scala.concurrent.Future
 
@@ -8,5 +8,5 @@ import scala.concurrent.Future
   * Created by mattia on 12/04/16.
   */
 trait AuthService {
-  def isAuthorized(auth: BulkEmailAuth): Future[Boolean]
+  def isAuthorized(auth: BulkMailAuth): Future[Boolean]
 }
