@@ -15,15 +15,18 @@ import scala.concurrent.Future
 class MailServiceMock @Inject()() extends MailService {
   override def send(from: String, to: String, title: String, text: String, html: String): Future[MailStatus] = Future {
     to match {
-      case MailServiceMock.validTo => {
-        Logger.info(s"MailServiceMock.send --- $from->$to: [$title] $text -- $html")
+      case MailServiceMock.invalidTo => {
+        Logger.info(s"[REJECT] MailServiceMock.send --- $from->$to: [$title] $text -- $html")
+        MailStatus(to, false, Some("Invalid 'to' field"))
+      }
+      case _ => {
+        Logger.info(s"[OK] MailServiceMock.send --- $from->$to: [$title] $text -- $html")
         MailStatus(to, true, None)
       }
-      case _ => MailStatus(to, false, Some("Invalid 'to' field"))
     }
   }
 }
 
 object MailServiceMock {
-  val validTo = "valid@email.ch"
+  val invalidTo = "invalid@email.ch"
 }

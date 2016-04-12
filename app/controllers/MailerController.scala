@@ -3,7 +3,7 @@ package controllers
 import javax.inject.Inject
 
 import models.Formatters._
-import models.SendMailAction
+import models.{MailStatus, BulkMail, SendMailAction}
 import play.api.libs.json.Json
 import play.api.mvc._
 import services.{AuthService, MailService, Template}
@@ -25,22 +25,25 @@ class MailerController @Inject()(
 
     val result = for {
       isAuthorized <- authService.isAuthorized(auth) if isAuthorized
-      sentMails = bulkMail.mails.map { mail =>
-        mailer.send(
-          from = bulkMail.fromEmail,
-          to = mail.email,
-          title = bulkMail.subject,
-          text = Template.render(bulkMail.text, mail.paramsWithMail),
-          html = Template.render(bulkMail.html, mail.paramsWithMail)
-        )
-      }
-      mailReports <- Future.sequence(sentMails)
+      mailReports <- sendMails(bulkMail)
     } yield Ok(Json.toJson(mailReports))
 
     result recover {
       case _ => Forbidden
     }
 
+  }
+
+  private def sendMails(bulkMail: BulkMail): Future[Set[MailStatus]] = Future.sequence {
+    bulkMail.mails.map { mail =>
+      mailer.send(
+        from = bulkMail.fromEmail,
+        to = mail.email,
+        title = bulkMail.subject,
+        text = Template.render(bulkMail.text, mail.paramsWithMail),
+        html = Template.render(bulkMail.html, mail.paramsWithMail)
+      )
+    }
   }
 
 
