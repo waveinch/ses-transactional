@@ -1,5 +1,5 @@
 import com.google.inject.AbstractModule
-import services.{SesService, MailService}
+import services.{AuthServiceImpl, AuthService, SesService, MailService}
 
 
 /**
@@ -16,6 +16,7 @@ class Module extends AbstractModule {
 
   override def configure() = {
     bind(classOf[MailService]).to(classOf[SesService])
+    bind(classOf[AuthService]).to(classOf[AuthServiceImpl])
   }
 
 }
