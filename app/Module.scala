@@ -15,7 +15,7 @@ import services._
 class Module extends AbstractModule {
 
   override def configure() = {
-    bind(classOf[MailService]).to(classOf[MailServiceMock])
+    bind(classOf[MailService]).to(classOf[SesService])
     bind(classOf[AuthService]).to(classOf[AuthServiceImpl])
   }
 
