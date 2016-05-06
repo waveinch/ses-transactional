@@ -61,5 +61,15 @@ class MailerController @Inject()(
     }
   }
 
+  def complaint() = Action{ r =>
+    println(r.body)
+    Ok("recived")
+  }
+
+  def bounce() = Action{ r =>
+    println(r.body)
+    Ok("recived")
+  }
+
 
 }

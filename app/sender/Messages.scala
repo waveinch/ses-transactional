@@ -12,7 +12,7 @@ object Messages {
 
     case class Job(mailer:MailService,bulk:BulkMail)
 
-    case class SentMail(status:MailStatus,from:String,mail:String)
+    case class SentMail(status:MailStatus,from:String)
 
     case object Tick
 

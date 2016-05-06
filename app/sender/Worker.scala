@@ -51,7 +51,7 @@ class Worker extends Actor {
           text = Template.render(bulkMail.text, mail.paramsWithMail),
           html = Template.render(bulkMail.html, mail.paramsWithMail)
         ) ).map{ status =>
-          context.parent ! Messages.SentMail(status,bulkMail.fromEmail,mail.email)
+          context.parent ! Messages.SentMail(status,bulkMail.fromEmail)
         }
   }
 }

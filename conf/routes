@@ -6,6 +6,9 @@ GET     /                           controllers.HomeController.index
 
 POST    /send                       controllers.MailerController.send
 
+POST    /bounce                     controllers.MailerController.bounce
+POST    /complaint                  controllers.MailerController.complaint
+
 
 GET     /sandbox                    controllers.MailerController.sandboxSuccess
 
