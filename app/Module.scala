@@ -1,4 +1,7 @@
+import akka.actor.Props
 import com.google.inject.AbstractModule
+import play.api.libs.concurrent.AkkaGuiceSupport
+import sender.{TickerImpl, Ticker, CampaignSupervisor}
 import services._
 
 
@@ -12,11 +15,13 @@ import services._
  * adding `play.modules.enabled` settings to the `application.conf`
  * configuration file.
  */
-class Module extends AbstractModule {
+class Module extends AbstractModule with AkkaGuiceSupport {
 
   override def configure() = {
     bind(classOf[MailService]).to(classOf[SesService])
-    bind(classOf[AuthService]).to(classOf[AuthServiceImpl])
+    bind(classOf[AuthService]).to(classOf[AuthServiceInsecure])
+    bind(classOf[Ticker]).to(classOf[TickerImpl]).asEagerSingleton()
+    bindActor[CampaignSupervisor](CampaignSupervisor.name)
   }
 
 }

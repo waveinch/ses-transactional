@@ -7,3 +7,6 @@ GET     /                           controllers.HomeController.index
 POST    /send                       controllers.MailerController.send
 
 
+GET     /sandbox                    controllers.MailerController.sandboxSuccess
+
+

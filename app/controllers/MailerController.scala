@@ -1,11 +1,13 @@
 package controllers
 
-import javax.inject.Inject
+import javax.inject.{Inject,Named}
 
+import akka.actor.ActorRef
 import models.Formatters._
-import models.{Formatters, MailStatus, BulkMail, SendMailAction}
+import models._
 import play.api.libs.json.Json
 import play.api.mvc._
+import sender.{Messages, CampaignSupervisor}
 import services.{AuthService, MailService, Template}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,7 +18,9 @@ import scala.concurrent.Future
   */
 class MailerController @Inject()(
                                   authService: AuthService,
-                                  mailer: MailService) extends Controller {
+                                  mailer: MailService,
+                                  @Named(CampaignSupervisor.name) campaignSupervisor: ActorRef
+                                ) extends Controller {
 
   def send() = Action.async(parse.json(maxLength = 100 * 1024 * 1024)) { r =>
     val sendMailAction = r.body.as[SendMailAction](Formatters.sendMailAction)
@@ -37,17 +41,24 @@ class MailerController @Inject()(
   private def sendMails(bulkMail: BulkMail): Future[Boolean] = {
     Future.sequence {
       bulkMail.mails.map { mail =>
-        mailer.send(
+        mailer.send( Mail(
           from = bulkMail.fromEmail,
           to = mail.email,
           title = bulkMail.subject,
           text = Template.render(bulkMail.text, mail.paramsWithMail),
           html = Template.render(bulkMail.html, mail.paramsWithMail)
-        )
+        ) )
       }
     }
 
     Future.successful(true)
+  }
+
+  def sandboxSuccess() = Action.async{
+    mailer.quota().map{ quota =>
+      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkSuccess(1000),quota)
+      Ok("Campaign submitted")
+    }
   }
 
 

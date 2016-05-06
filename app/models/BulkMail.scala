@@ -9,7 +9,7 @@ case class BulkMail(
                      text:String,
                      fromName:String,
                      fromEmail:String,
-                     mails: Set[MailParams]
+                     mails: Seq[MailParams]
                    )
 
 case class MailParams(email:String,params:Map[String,String]) {
