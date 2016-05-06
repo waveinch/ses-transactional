@@ -8,8 +8,8 @@ object Sandbox {
     val successAddress = "success@simulator.amazonses.com"
     val bounceAddress = "bounce@simulator.amazonses.com"
     val complaintAddress = "complaint@simulator.amazonses.com"
-    val ootoAddress = "complaint@simulator.amazonses.com"
-    val suppressionlistAddress = "complaint@simulator.amazonses.com"
+    val ootoAddress = "ooto@simulator.amazonses.com"
+    val suppressionlistAddress = "suppressionlist@simulator.amazonses.com"
 
     val success = Mail(
       from = "andrea@wavein.ch",

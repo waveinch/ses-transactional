@@ -13,7 +13,7 @@ object Samples {
     text = "text",
     fromName = "fromName",
     fromEmail = "from@email.ch",
-    mails = Set(MailParams("a@a.ch",
+    mails = Seq(MailParams("a@a.ch",
       Map()
     ), MailParams("b@b.ch", Map()))
   )
