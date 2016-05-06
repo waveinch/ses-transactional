@@ -10,6 +10,10 @@ POST    /bounce                     controllers.MailerController.bounce
 POST    /complaint                  controllers.MailerController.complaint
 
 
-GET     /sandbox                    controllers.MailerController.sandboxSuccess
+GET     /sandbox/success                    controllers.MailerController.sandboxSuccess
+GET     /sandbox/bounce                    controllers.MailerController.sandboxBounce
+GET     /sandbox/complaint                    controllers.MailerController.sandboxComplaint
+GET     /sandbox/ooto                    controllers.MailerController.sandboxOOTO
+GET     /sandbox/suppression                    controllers.MailerController.sandboxSuppression
 
 

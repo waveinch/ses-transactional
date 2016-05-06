@@ -26,7 +26,6 @@ class CampaignSupervisor extends Actor {
       }
     }
     case Tick => {
-      println("tick")
       workersSupervisor ! Tick
     }
     case CampaignDone => nextCampaign()
