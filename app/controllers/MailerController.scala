@@ -24,13 +24,21 @@ class MailerController @Inject()(
 
   def send() = Action.async(parse.json(maxLength = 100 * 1024 * 1024)) { r =>
     val sendMailAction = r.body.as[SendMailAction](Formatters.sendMailAction)
+
+    println("Recived:")
+    println(r.body)
+
     val bulkMail = sendMailAction.bulkMail
     val auth = sendMailAction.auth
 
     val result = for {
       isAuthorized <- authService.isAuthorized(auth) if isAuthorized
-      mailReports <- sendMails(bulkMail)
-    } yield Ok(Json.obj("result" -> mailReports))
+      quota <- mailer.quota()
+    } yield {
+
+      campaignSupervisor ! Messages.Campaign(mailer,bulkMail,quota)
+      Ok(Json.obj("result" -> true))
+    }
 
     result recover {
       case _ => Forbidden
@@ -38,21 +46,6 @@ class MailerController @Inject()(
 
   }
 
-  private def sendMails(bulkMail: BulkMail): Future[Boolean] = {
-    Future.sequence {
-      bulkMail.mails.map { mail =>
-        mailer.send( Mail(
-          from = bulkMail.fromEmail,
-          to = mail.email,
-          title = bulkMail.subject,
-          text = Template.render(bulkMail.text, mail.paramsWithMail),
-          html = Template.render(bulkMail.html, mail.paramsWithMail)
-        ) )
-      }
-    }
-
-    Future.successful(true)
-  }
 
   def sandboxSuccess() = Action.async{
     mailer.quota().map{ quota =>
@@ -93,6 +86,11 @@ class MailerController @Inject()(
 
   def bounce() = Action{ r =>
     println("Bounce:" + r.body)
+    Ok("received")
+  }
+
+  def success() = Action{ r =>
+    println("Success:" + r.body)
     Ok("received")
   }
 

@@ -8,7 +8,7 @@ import com.amazonaws.services.simpleemail._
 import com.amazonaws.services.simpleemail.model._
 import com.amazonaws.regions._
 import models.{Mail, MailStatus}
-import play.api.Environment
+import play.api.{Configuration, Environment}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,7 +16,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
   * Created by unoedx on 09/04/16.
   */
-class SesService extends MailService {
+class SesService  @Inject()(
+                             conf: Configuration) extends MailService {
 
   def credentials:BasicAWSCredentials = new BasicAWSCredentials(System.getenv("SES_KEY"),System.getenv("SES_SECRET"))
 
@@ -55,4 +56,6 @@ class SesService extends MailService {
   override def quota(): Future[GetSendQuotaResult] = Future{
      client.getSendQuota
   }
+
+  override def sandbox: Boolean = conf.getBoolean("adt.sandbox").get
 }

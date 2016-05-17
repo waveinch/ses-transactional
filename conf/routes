@@ -8,6 +8,7 @@ POST    /send                       controllers.MailerController.send
 
 POST    /bounce                     controllers.MailerController.bounce
 POST    /complaint                  controllers.MailerController.complaint
+POST    /success                    controllers.MailerController.success
 
 
 GET     /sandbox/success                    controllers.MailerController.sandboxSuccess

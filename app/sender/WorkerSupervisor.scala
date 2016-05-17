@@ -52,13 +52,22 @@ class WorkerSupervisor extends Actor {
 
   private def startJobs(c:Campaign) = {
 
+    println("Start Job with quota:")
+    println("max 24h:" + c.quota.getMax24HourSend)
+    println("ratio:" + c.quota.getMaxSendRate)
+
     dailyLimit = c.quota.getMax24HourSend.toInt
     counter = List()
 
-    val workersCount = (1*c.quota.getMaxSendRate).toInt
-    val mailChuncks = c.bulk.mails.grouped(math.ceil(c.bulk.mails.length/workersCount).toInt)
+    val workersCount = 1*c.quota.getMaxSendRate
+    val mailsPerWorker = math.ceil(c.bulk.mails.length/workersCount).toInt
+    val mailChuncks = c.bulk.mails.grouped(mailsPerWorker).filter(_.length > 0).toList
+
+    println(mailChuncks.length + "workers")
+    println(mailsPerWorker + "mail to be processed by each worker")
 
     for(mails <- mailChuncks) {
+      println("Starting worker")
       val worker = context.actorOf(Props[Worker])
       workers = worker :: workers
       worker ! Job(c.mailer,c.bulk.copy(mails = mails))

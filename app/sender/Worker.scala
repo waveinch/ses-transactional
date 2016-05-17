@@ -2,7 +2,7 @@ package sender
 
 import akka.actor.{PoisonPill, Actor}
 import akka.actor.Actor.Receive
-import models.{MailParams, Mail, BulkMail}
+import models.{Sandbox, MailParams, Mail, BulkMail}
 import sender.Messages.{WorkDone, Tick, Job}
 import services.{MailService, Template}
 
@@ -44,9 +44,12 @@ class Worker extends Actor {
   }
 
   private def sendMail(mail: MailParams, bulkMail: BulkMail) = {
+
+        val email = if(currentMailer.sandbox) Sandbox.successAddress else mail.email
+
         currentMailer.send( Mail(
           from = bulkMail.fromEmail,
-          to = mail.email,
+          to = email,
           title = bulkMail.subject,
           text = Template.render(bulkMail.text, mail.paramsWithMail),
           html = Template.render(bulkMail.html, mail.paramsWithMail)

@@ -13,4 +13,6 @@ trait MailService {
 
   def quota():Future[GetSendQuotaResult]
 
+  def sandbox:Boolean
+
 }

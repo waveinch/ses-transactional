@@ -13,6 +13,8 @@ import scala.concurrent.Future
   * Created by mattia on 12/04/16.
   */
 class MailServiceMock @Inject()() extends MailService {
+  override def sandbox: Boolean = true
+
   override def send(mail: Mail): Future[MailStatus] = Future {
     mail.to match {
       case MailServiceMock.invalidTo => {
