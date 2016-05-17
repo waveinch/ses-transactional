@@ -55,16 +55,18 @@ class WorkerSupervisor extends Actor {
     println("Start Job with quota:")
     println("max 24h:" + c.quota.getMax24HourSend)
     println("ratio:" + c.quota.getMaxSendRate)
+    println("mails:" + c.bulk.mails.length)
 
     dailyLimit = c.quota.getMax24HourSend.toInt
     counter = List()
 
     val workersCount = 1*c.quota.getMaxSendRate
     val mailsPerWorker = math.ceil(c.bulk.mails.length/workersCount).toInt
-    val mailChuncks = c.bulk.mails.grouped(mailsPerWorker).filter(_.length > 0).toList
+    println(mailsPerWorker + "mail to be processed by each worker")
+    val mailChuncks = c.bulk.mails.grouped(mailsPerWorker).toList.filter(_.length > 0)
 
     println(mailChuncks.length + "workers")
-    println(mailsPerWorker + "mail to be processed by each worker")
+
 
     for(mails <- mailChuncks) {
       println("Starting worker")

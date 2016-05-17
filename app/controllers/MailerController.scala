@@ -90,7 +90,7 @@ class MailerController @Inject()(
   }
 
   def success() = Action{ r =>
-    println("Success:" + (r.body.asJson.get \ "Message"))
+    println("Success:" + (Json.parse(r.body.asText.get) \ "Message"))
     Ok("received")
   }
 

@@ -25,7 +25,7 @@ object Sandbox {
       text = "success",
       fromEmail = "andrea@wavein.ch",
       fromName = "ADT",
-      mails = {for(i <- 1 until qty) yield { MailParams(sendMail,Map()) }}
+      mails = {for(i <- 1 to qty) yield { MailParams(sendMail,Map()) }}
     )
 
     def bulkSuccess(qty:Int) = bulk(qty,successAddress)
