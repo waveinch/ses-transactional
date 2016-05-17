@@ -5,6 +5,7 @@ import javax.inject.{Inject,Named}
 import akka.actor.ActorRef
 import models.Formatters._
 import models._
+import play.api.Configuration
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import sender.{Messages, CampaignSupervisor}
@@ -19,6 +20,7 @@ import scala.concurrent.Future
 class MailerController @Inject()(
                                   authService: AuthService,
                                   mailer: MailService,
+                                  configuration: Configuration,
                                   feedbackService: FeedbackService,
                                   @Named(CampaignSupervisor.name) campaignSupervisor: ActorRef
                                 ) extends Controller {
@@ -37,7 +39,11 @@ class MailerController @Inject()(
       quota <- mailer.quota()
     } yield {
 
-      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,bulkMail,quota)
+      val bm = if(auth.campaignId.contains("inviotest")) {
+        bulkMail.copy(mails = configuration.getStringSeq("adt.testers").get.map(m => MailParams(m, Map("uuid" -> "UUID-key"))))
+      } else bm
+
+      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,bm,quota)
       Ok(Json.obj("result" -> true))
     }
 

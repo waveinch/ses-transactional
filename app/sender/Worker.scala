@@ -64,7 +64,7 @@ class Worker extends Actor {
           html = Template.render(bulkMail.html, mail.paramsWithMail)
         ) ).map{ status =>
 
-          currentFeedback.delivery(Feedback("pending",status.mailId,bulkMail.fromEmail,Seq(Hash.hashEmail(email)),new java.util.Date().toString))
+          currentFeedback.delivery(Feedback("pending" + status.rejectReason.map(x => "-"+x).getOrElse(""),status.mailId,bulkMail.fromEmail,Seq(Hash.hashEmail(email)),new java.util.Date().toString))
 
           context.parent ! Messages.SentMail(status,bulkMail.fromEmail)
         }
