@@ -19,11 +19,11 @@ class MailServiceMock @Inject()() extends MailService {
     mail.to match {
       case MailServiceMock.invalidTo => {
         Logger.info(s"[REJECT] MailServiceMock.send --- ${mail.from}->${mail.to}: [${mail.title}] ${mail.text} -- ${mail.html}")
-        MailStatus(mail.to, false, Some("Invalid 'to' field"))
+        MailStatus(mail.to,"id", false, Some("Invalid 'to' field"))
       }
       case _ => {
         Logger.info(s"[OK] MailServiceMock.send --- ${mail.from}->${mail.to}: [${mail.title}] ${mail.text} -- ${mail.html}")
-        MailStatus(mail.to, true, None)
+        MailStatus(mail.to,"id", true, None)
       }
     }
   }

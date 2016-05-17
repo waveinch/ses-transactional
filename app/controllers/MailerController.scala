@@ -5,12 +5,10 @@ import javax.inject.{Inject,Named}
 import akka.actor.ActorRef
 import models.Formatters._
 import models._
-import play.api.Configuration
 import play.api.libs.json.{JsValue, Json}
-import play.api.libs.ws.WSClient
 import play.api.mvc._
 import sender.{Messages, CampaignSupervisor}
-import services.{Hash, AuthService, MailService, Template}
+import services._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -20,9 +18,8 @@ import scala.concurrent.Future
   */
 class MailerController @Inject()(
                                   authService: AuthService,
-                                  conf: Configuration,
                                   mailer: MailService,
-                                  wsClient: WSClient,
+                                  feedbackService: FeedbackService,
                                   @Named(CampaignSupervisor.name) campaignSupervisor: ActorRef
                                 ) extends Controller {
 
@@ -40,7 +37,7 @@ class MailerController @Inject()(
       quota <- mailer.quota()
     } yield {
 
-      campaignSupervisor ! Messages.Campaign(mailer,bulkMail,quota)
+      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,bulkMail,quota)
       Ok(Json.obj("result" -> true))
     }
 
@@ -53,68 +50,58 @@ class MailerController @Inject()(
 
   def sandboxSuccess(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkSuccess(num),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkSuccess(num),quota)
       Ok("Campaign submitted")
     }
   }
 
   def sandboxBounce(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkBounce(num),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkBounce(num),quota)
       Ok("Campaign submitted")
     }
   }
   def sandboxComplaint(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkComplaint(num),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkComplaint(num),quota)
       Ok("Campaign submitted")
     }
   }
   def sandboxOOTO(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkOoto(num),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkOoto(num),quota)
       Ok("Campaign submitted")
     }
   }
   def sandboxSuppression(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkSuppression(num),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkSuppression(num),quota)
       Ok("Campaign submitted")
     }
   }
 
 
 
-  implicit val feedbackFormatter = Json.format[Feedback]
-  case class Feedback(
-                              reason:String,
-                              mailId:String,
-                              fromMail:String,
-                              hashedMail:Seq[String],
-                              timestamp:String
-                            )
+
   def bounce() = Action.async{ r =>
-    val url = conf.getString("adt.frontend").get + "/newsletter/bounces"
     val msg = message(r.body.asText.get)
     val feedback = message2Feedback(msg,"bounce")
     println("bounce:" + msg)
-    sendFeedback(feedback,url).map{_ => Ok("received") }
+    feedbackService.bounces(feedback).map{_ => Ok("received") }
   }
 
   def complaint() = Action.async{ r =>
-    val url = conf.getString("adt.frontend").get + "/newsletter/bounces"
     val msg = message(r.body.asText.get)
     val feedback = message2Feedback(msg,"complaint")
     println("complaint:" + msg)
-    sendFeedback(feedback,url).map{_ => Ok("received") }
+    feedbackService.bounces(feedback).map{_ => Ok("received") }
   }
 
   def success() = Action.async{ r =>
-    val url = conf.getString("adt.frontend").get + "/newsletter/delivery"
     val msg = message(r.body.asText.get)
     val feedback = message2Feedback(msg,"success")
     println("success:" + msg)
-    sendFeedback(feedback,url).map{_ => Ok("received") }
+    feedbackService.delivery(feedback).map{_ => Ok("received") }
   }
 
 
@@ -130,8 +117,8 @@ class MailerController @Inject()(
     timestamp = (msg \ "mail" \ "timestamp").as[String]
   )
 
-  private def sendFeedback(feedback:Feedback,url:String):Future[Boolean] = {
-     wsClient.url(url).post(Json.toJson(feedback)).map(_.status == 200)
-  }
+
+
+
 
 }

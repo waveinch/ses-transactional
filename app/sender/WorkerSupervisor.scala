@@ -72,7 +72,7 @@ class WorkerSupervisor extends Actor {
       println("Starting worker")
       val worker = context.actorOf(Props[Worker])
       workers = worker :: workers
-      worker ! Job(c.mailer,c.bulk.copy(mails = mails))
+      worker ! Job(c.mailer,c.feedback,c.bulk.copy(mails = mails))
       println("worker started")
     }
 

@@ -4,7 +4,7 @@ import akka.actor.{PoisonPill, Actor}
 import akka.actor.Actor.Receive
 import models.{Sandbox, MailParams, Mail, BulkMail}
 import sender.Messages.{WorkDone, Tick, Job}
-import services.{MailService, Template}
+import services._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 /**
@@ -14,11 +14,13 @@ class Worker extends Actor {
 
   var currentBulk:BulkMail = null
   var currentMailer:MailService = null
+  var currentFeedback:FeedbackService = null
 
   override def receive: Receive = {
-    case Job(mailer,bulk) => {
+    case Job(mailer,feedback,bulk) => {
       currentBulk = bulk
       currentMailer = mailer
+      currentFeedback = feedback
       context.become(working)
     }
   }
@@ -61,6 +63,9 @@ class Worker extends Actor {
           text = Template.render(bulkMail.text, mail.paramsWithMail),
           html = Template.render(bulkMail.html, mail.paramsWithMail)
         ) ).map{ status =>
+
+          currentFeedback.delivery(Feedback("pending",status.mailId,bulkMail.fromEmail,Seq(Hash.hashEmail(email)),new java.util.Date().toString))
+
           context.parent ! Messages.SentMail(status,bulkMail.fromEmail)
         }
   }

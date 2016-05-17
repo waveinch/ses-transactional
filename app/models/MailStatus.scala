@@ -5,6 +5,7 @@ package models
   */
 case class MailStatus(
                        email: String,
+                       mailId: String,
                        status: Boolean,
                        rejectReason: Option[String] = None
                      )

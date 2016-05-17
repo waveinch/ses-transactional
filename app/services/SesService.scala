@@ -37,18 +37,18 @@ class SesService  @Inject()(
       System.out.println("Attempting to send an email through Amazon SES by using the AWS SDK for Java...")
 
       val result = client.sendEmail(request)
-      MailStatus(mail.to,true)
+      MailStatus(mail.to,result.getMessageId,true)
     }
     catch {
       case ex: AmazonServiceException => {
         System.out.println("The email was not sent.")
         System.out.println("Service: " + ex.getServiceName + ", errorcode:" + ex.getErrorCode)
-        MailStatus(mail.to,false,Some(ex.getErrorCode))
+        MailStatus(mail.to,ex.getRequestId,false,Some(ex.getErrorCode))
       }
       case ex: Exception => {
         System.out.println("The email was not sent.")
         System.out.println("Error message: " + ex.getMessage)
-        MailStatus(mail.to,false,Some(ex.getMessage))
+        MailStatus(mail.to,"",false,Some(ex.getMessage))
       }
     }
   }
