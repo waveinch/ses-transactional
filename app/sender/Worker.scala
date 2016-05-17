@@ -56,9 +56,11 @@ class Worker extends Actor {
           ) mail.email else Sandbox.successAddress
         } else mail.email
 
+        val from = s"${bulkMail.fromName} <$email>"
+
         currentMailer.send( Mail(
           from = bulkMail.fromEmail,
-          to = email,
+          to = from,
           title = bulkMail.subject,
           text = Template.render(bulkMail.text, mail.paramsWithMail),
           html = Template.render(bulkMail.html, mail.paramsWithMail)
