@@ -41,7 +41,7 @@ class MailerController @Inject()(
 
       val bm = if(auth.campaignId.contains("inviotest")) {
         bulkMail.copy(mails = configuration.getStringSeq("adt.testers").get.map(m => MailParams(m, Map("uuid" -> "UUID-key"))))
-      } else bm
+      } else bulkMail
 
       campaignSupervisor ! Messages.Campaign(mailer,feedbackService,bm,quota)
       Ok(Json.obj("result" -> true))
