@@ -47,34 +47,34 @@ class MailerController @Inject()(
   }
 
 
-  def sandboxSuccess() = Action.async{
+  def sandboxSuccess(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkSuccess(1000),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkSuccess(num),quota)
       Ok("Campaign submitted")
     }
   }
 
-  def sandboxBounce() = Action.async{
+  def sandboxBounce(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkBounce(10),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkBounce(num),quota)
       Ok("Campaign submitted")
     }
   }
-  def sandboxComplaint() = Action.async{
+  def sandboxComplaint(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkComplaint(10),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkComplaint(num),quota)
       Ok("Campaign submitted")
     }
   }
-  def sandboxOOTO() = Action.async{
+  def sandboxOOTO(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkOoto(10),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkOoto(num),quota)
       Ok("Campaign submitted")
     }
   }
-  def sandboxSuppression() = Action.async{
+  def sandboxSuppression(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkSuppression(10),quota)
+      campaignSupervisor ! Messages.Campaign(mailer,Sandbox.bulkSuppression(num),quota)
       Ok("Campaign submitted")
     }
   }
@@ -90,7 +90,7 @@ class MailerController @Inject()(
   }
 
   def success() = Action{ r =>
-    println("Success:" + r.body)
+    println("Success:" + (r.body.asJson.get \ "Message"))
     Ok("received")
   }
 

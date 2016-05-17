@@ -11,10 +11,10 @@ POST    /complaint                  controllers.MailerController.complaint
 POST    /success                    controllers.MailerController.success
 
 
-GET     /sandbox/success                    controllers.MailerController.sandboxSuccess
-GET     /sandbox/bounce                    controllers.MailerController.sandboxBounce
-GET     /sandbox/complaint                    controllers.MailerController.sandboxComplaint
-GET     /sandbox/ooto                    controllers.MailerController.sandboxOOTO
-GET     /sandbox/suppression                    controllers.MailerController.sandboxSuppression
+GET     /sandbox/success/:num              controllers.MailerController.sandboxSuccess(num:Int)
+GET     /sandbox/bounce/:num                    controllers.MailerController.sandboxBounce(num:Int)
+GET     /sandbox/complaint/:num                  controllers.MailerController.sandboxComplaint(num:Int)
+GET     /sandbox/ooto/:num                       controllers.MailerController.sandboxOOTO(num:Int)
+GET     /sandbox/suppression/:num                    controllers.MailerController.sandboxSuppression(num:Int)
 
 

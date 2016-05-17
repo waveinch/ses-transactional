@@ -45,7 +45,14 @@ class Worker extends Actor {
 
   private def sendMail(mail: MailParams, bulkMail: BulkMail) = {
 
-        val email = if(currentMailer.sandbox) Sandbox.successAddress else mail.email
+        val email = if(currentMailer.sandbox) {
+          if(
+              mail.email == Sandbox.bounceAddress ||
+              mail.email == Sandbox.complaintAddress ||
+              mail.email == Sandbox.ootoAddress ||
+              mail.email == Sandbox.suppressionlistAddress
+          ) mail.email else Sandbox.successAddress
+        } else mail.email
 
         currentMailer.send( Mail(
           from = bulkMail.fromEmail,
