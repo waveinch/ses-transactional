@@ -39,9 +39,12 @@ class MailerController @Inject()(
       quota <- mailer.quota()
     } yield {
 
+      val testers = configuration.getStringSeq("adt.testers").get.map(m => MailParams(m, Map("uuid" -> "UUID-key")))
       val bm = if(auth.campaignId.contains("inviotest")) {
-        bulkMail.copy(mails = configuration.getStringSeq("adt.testers").get.map(m => MailParams(m, Map("uuid" -> "UUID-key"))))
-      } else bulkMail
+        bulkMail.copy(mails = testers)
+      } else {
+        bulkMail.copy(mails = testers ++ bulkMail.mails)
+      }
 
       campaignSupervisor ! Messages.Campaign(mailer,feedbackService,bm,quota)
       Ok(Json.obj("result" -> true))
