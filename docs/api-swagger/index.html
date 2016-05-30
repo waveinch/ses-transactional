@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <title>Ses Transactional</title>
+</head>
+<body>
+<div class="container">
+    <h1>Ses Transactional</h1>
+    <p class="sw-info-version">Version: <span>1.0</span></p>
+    <p><p>Ses Transactional</p>
+    </p>
+    
+        <div id="sw-default-consumes" class="sw-default-value">
+            <span class="sw-default-value-header">Default request content-types:</span>
+            application/json
+        </div>
+        <div id="sw-default-produces" class="sw-default-value">
+            <span class="sw-default-value-header">Default response content-types:</span>
+            application/json
+        </div>
+    
+    <div id="sw-schemes" class="sw-default-value">
+        <span class="sw-default-value-header">Schemes:</span>
+        https
+    </div>
+    
+        <h2 id="swagger--summary-no-tags">Summary</h2>
+        <table class="table table-bordered table-condensed swagger--summary">
+            <thead>
+            <tr>
+                <th>Path</th>
+                <th>Operation</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--bounce">/bounce</a>
+                            </td>
+                        <td>
+                            <a href="#operation--bounce-post">POST</a>
+                        </td>
+                        <td>
+                            <p>Report bounce email</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--complaint">/complaint</a>
+                            </td>
+                        <td>
+                            <a href="#operation--complaint-post">POST</a>
+                        </td>
+                        <td>
+                            <p>Report complaint email</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--send">/send</a>
+                            </td>
+                        <td>
+                            <a href="#operation--send-post">POST</a>
+                        </td>
+                        <td>
+                            <p>Send emails</p>
+        
+                        </td>
+                    </tr>
+                    <tr>
+                            <td class="swagger--summary-path" rowspan="1">
+                                <a href="#path--success">/success</a>
+                            </td>
+                        <td>
+                            <a href="#operation--success-post">POST</a>
+                        </td>
+                        <td>
+                            <p>Report success email</p>
+        
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+    
+    
+    
+    <h2>Paths</h2>
+    
+        
+        <span id="path--bounce"></span>
+            <div id="operation--bounce-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Report bounce email</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/bounce</strong></h3>
+                        Tags:
+                            <a href="#tag-routes-swagger">routes-swagger</a>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+                        
+                            <section class="sw-request-body">
+                                
+                                    <p><span class="label label-default">application/json</span> 
+                        </p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-6 sw-request-model">
+                            <div  class="panel panel-definition">
+                                <div class="panel-body">
+                                            <a class="json-schema-ref" href="#/definitions/swagger.Report">swagger.Report</a>
+                                </div>
+                            </div></div>
+                                        </div>
+                            </section>        
+                    
+                        <section class="sw-responses">
+                                <p><a href="#sw-default-produces">Uses default content-types: </a>
+                                    <span class="label label-default">application/json</span> 
+                                </p>
+                            
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Message received</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    
+        <span id="path--complaint"></span>
+            <div id="operation--complaint-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Report complaint email</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/complaint</strong></h3>
+                        Tags:
+                            <a href="#tag-routes-swagger">routes-swagger</a>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+                        
+                            <section class="sw-request-body">
+                                
+                                    <p><span class="label label-default">application/json</span> 
+                        </p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-6 sw-request-model">
+                            <div  class="panel panel-definition">
+                                <div class="panel-body">
+                                            <a class="json-schema-ref" href="#/definitions/swagger.Report">swagger.Report</a>
+                                </div>
+                            </div></div>
+                                        </div>
+                            </section>        
+                    
+                        <section class="sw-responses">
+                                <p><a href="#sw-default-produces">Uses default content-types: </a>
+                                    <span class="label label-default">application/json</span> 
+                                </p>
+                            
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Message received</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    
+        <span id="path--send"></span>
+            <div id="operation--send-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Send emails</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/send</strong></h3>
+                        Tags:
+                            <a href="#tag-routes-swagger">routes-swagger</a>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+                        
+                            <section class="sw-request-body">
+                                
+                                    <p><span class="label label-default">application/json</span> 
+                        </p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-6 sw-request-model">
+                            <div  class="panel panel-definition">
+                                <div class="panel-body">
+                                            <a class="json-schema-ref" href="#/definitions/models.SendMailAction">models.SendMailAction</a>
+                                </div>
+                            </div></div>
+                                        </div>
+                            </section>        
+                    
+                        <section class="sw-responses">
+                                <p><a href="#sw-default-produces">Uses default content-types: </a>
+                                    <span class="label label-default">application/json</span> 
+                                </p>
+                            
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Simple json with {&quot;result&quot;: true | false}</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>    
+        <span id="path--success"></span>
+            <div id="operation--success-post" class="swagger--panel-operation-post panel">
+                <div class="panel-heading">
+                    <div class="operation-summary">Report success email</div>
+                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/success</strong></h3>
+                        Tags:
+                            <a href="#tag-routes-swagger">routes-swagger</a>
+                </div>
+                <div class="panel-body">
+                    <section class="sw-operation-description">
+                        
+                    </section>
+                        
+                            <section class="sw-request-body">
+                                
+                                    <p><span class="label label-default">application/json</span> 
+                        </p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p></p>
+                                            </div>
+                                            <div class="col-md-6 sw-request-model">
+                            <div  class="panel panel-definition">
+                                <div class="panel-body">
+                                            <a class="json-schema-ref" href="#/definitions/swagger.Report">swagger.Report</a>
+                                </div>
+                            </div></div>
+                                        </div>
+                            </section>        
+                    
+                        <section class="sw-responses">
+                                <p><a href="#sw-default-produces">Uses default content-types: </a>
+                                    <span class="label label-default">application/json</span> 
+                                </p>
+                            
+                            <dl>
+                                    <dt class="sw-response-200">
+                                        200 OK
+                                    
+                                    </dt>
+                                    <dd class="sw-response-200">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <p>Message received</p>
+                                            
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 sw-response-model">
+                                            </div>
+                                            
+                                            </div>                </dd>
+                            </dl>
+                        </section>
+                </div>
+            </div>
+     
+    
+                       
+        <h2>Schema definitions</h2>
+    
+            
+                <div id="definition-models.BulkMail" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/models.BulkMail"></a>models.BulkMail:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="subject">
+                                                <span class="json-property-name">subject:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="html">
+                                                <span class="json-property-name">html:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="text">
+                                                <span class="json-property-name">text:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="fromName">
+                                                <span class="json-property-name">fromName:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="fromEmail">
+                                                <span class="json-property-name">fromEmail:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="mails">
+                                                <span class="json-property-name">mails:</span>
+                                                <span class="json-property-type">object[]</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                                    <section class="json-schema-array-items">
+                                                                        <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/models.MailParams">models.MailParams</a>
+                                                                        </span>
+                                                                        <span class="json-property-range" title="Value limits"></span>
+                                                                        
+                                                                        <div class="json-inner-schema">
+                                                                            
+                                                                        </div>
+                                                                    </section>                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>        
+                <div id="definition-models.BulkMailAuth" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/models.BulkMailAuth"></a>models.BulkMailAuth:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="partnerId">
+                                                <span class="json-property-name">partnerId:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="apiKey">
+                                                <span class="json-property-name">apiKey:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="campaignId">
+                                                <span class="json-property-name">campaignId:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>        
+                <div id="definition-models.MailParams" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/models.MailParams"></a>models.MailParams:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="email">
+                                                <span class="json-property-name">email:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="params">
+                                                <span class="json-property-name">params:</span>
+                                                <span class="json-property-type">object</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                                <section class="json-schema-additionalProperties">
+                                                                    <span class="json-property-type"><span class="json-property-type">string</span>
+                                                                <span class="json-property-range" title="Value limits"></span>
+                                                                
+                                                                </span>
+                                                                    
+                                                                </section>
+                                                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>        
+                <div id="definition-models.SendMailAction" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/models.SendMailAction"></a>models.SendMailAction:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="auth">
+                                                <span class="json-property-name">auth:</span>
+                                                <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/models.BulkMailAuth">models.BulkMailAuth</a>
+                                                </span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="bulkMail">
+                                                <span class="json-property-name">bulkMail:</span>
+                                                <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/models.BulkMail">models.BulkMail</a>
+                                                </span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>        
+                <div id="definition-swagger.Bounce" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/swagger.Bounce"></a>swagger.Bounce:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="bounceType">
+                                                <span class="json-property-name">bounceType:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>        
+                <div id="definition-swagger.Mail" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/swagger.Mail"></a>swagger.Mail:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="messageId">
+                                                <span class="json-property-name">messageId:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="source">
+                                                <span class="json-property-name">source:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="destination">
+                                                <span class="json-property-name">destination:</span>
+                                                <span class="json-property-type">string[]</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                                    <section class="json-schema-array-items">
+                                                                        <span class="json-property-type">string</span>
+                                                                        <span class="json-property-range" title="Value limits"></span>
+                                                                        
+                                                                        <div class="json-inner-schema">
+                                                                            
+                                                                        </div>
+                                                                    </section>                </div>
+                                            </dd>
+                                            <dt data-property-name="timestamp">
+                                                <span class="json-property-name">timestamp:</span>
+                                                <span class="json-property-type">string</span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>        
+                <div id="definition-swagger.Message" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/swagger.Message"></a>swagger.Message:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="bounce">
+                                                <span class="json-property-name">bounce:</span>
+                                                <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/swagger.Bounce">swagger.Bounce</a>
+                                                </span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                            <dt data-property-name="mail">
+                                                <span class="json-property-name">mail:</span>
+                                                <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/swagger.Mail">swagger.Mail</a>
+                                                </span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>        
+                <div id="definition-swagger.Report" class="panel panel-definition">
+                        <div class="panel-heading">
+                                <h3 class="panel-title"><a name="/definitions/swagger.Report"></a>swagger.Report:
+                                    <span class="json-property-type"><span class="json-property-type">object</span>
+                <span class="json-property-range" title="Value limits"></span>
+                
+                </span>
+                                </h3>
+                        </div>
+                    <div class="panel-body">
+                            
+                                <section class="json-schema-properties">
+                                    <dl>
+                                            <dt data-property-name="Message">
+                                                <span class="json-property-name">Message:</span>
+                                                <span class="json-property-type">    <a class="json-schema-ref" href="#/definitions/swagger.Message">swagger.Message</a>
+                                                </span>
+                                                <span class="json-property-range" title="Value limits"></span>
+                                                
+                                                    <span class="json-property-required"></span>
+                                            </dt>
+                                            <dd>
+                                                
+                                                <div class="json-inner-schema">
+                                                    
+                                                </div>
+                                            </dd>
+                                    </dl>
+                                </section>
+                    </div>
+                </div>
+</div>
+</body>
+</html>
