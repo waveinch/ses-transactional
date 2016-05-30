@@ -65,6 +65,23 @@
           "type": "string"
         }
       }
+    },
+    "models.MailParams": {
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "email",
+        "params"
+      ]
     }
   }
 }

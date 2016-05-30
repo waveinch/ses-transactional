@@ -21,7 +21,7 @@ POST    /send                       controllers.MailerController.send
 #    - name: body
 #      required: true
 #      schema:
-#        $ref: "#/definitions/swagger.Message"
+#        $ref: "#/definitions/swagger.Report"
 #  responses:
 #    "200":
 #      description: Message received
@@ -34,7 +34,7 @@ POST    /bounce                     controllers.MailerController.bounce
 #    - name: body
 #      required: true
 #      schema:
-#        $ref: "#/definitions/swagger.Message"
+#        $ref: "#/definitions/swagger.Report"
 #  responses:
 #    "200":
 #      description: Message received
@@ -47,7 +47,7 @@ POST    /complaint                  controllers.MailerController.complaint
 #    - name: body
 #      required: true
 #      schema:
-#        $ref: "#/definitions/swagger.Message"
+#        $ref: "#/definitions/swagger.Report"
 #  responses:
 #    "200":
 #      description: Message received
