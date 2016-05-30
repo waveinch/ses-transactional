@@ -4,6 +4,8 @@
 
 GET     /                           controllers.HomeController.index
 
+GET     /docs/api.json              controllers.ApiSpecsController.specs
+
 POST    /send                       controllers.MailerController.send
 
 POST    /bounce                     controllers.MailerController.bounce
@@ -12,9 +14,9 @@ POST    /success                    controllers.MailerController.success
 
 
 GET     /sandbox/success/:num              controllers.MailerController.sandboxSuccess(num:Int)
-GET     /sandbox/bounce/:num                    controllers.MailerController.sandboxBounce(num:Int)
-GET     /sandbox/complaint/:num                  controllers.MailerController.sandboxComplaint(num:Int)
-GET     /sandbox/ooto/:num                       controllers.MailerController.sandboxOOTO(num:Int)
-GET     /sandbox/suppression/:num                    controllers.MailerController.sandboxSuppression(num:Int)
+GET     /sandbox/bounce/:num               controllers.MailerController.sandboxBounce(num:Int)
+GET     /sandbox/complaint/:num            controllers.MailerController.sandboxComplaint(num:Int)
+GET     /sandbox/ooto/:num                 controllers.MailerController.sandboxOOTO(num:Int)
+GET     /sandbox/suppression/:num          controllers.MailerController.sandboxSuppression(num:Int)
 
 

@@ -1,0 +1,70 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ses Transactional",
+    "description": "Ses Transactional",
+    "version": "1.0"
+  },
+  "host": "ses-transactional.herokuapp.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {
+    "swagger.Report": {
+      "properties": {
+        "Message": {
+          "$ref": "#/definitions/swagger.Message"
+        }
+      },
+      "required": [
+        "Message"
+      ]
+    },
+    "swagger.Message": {
+      "properties": {
+        "bounce": {
+          "$ref": "#/definitions/swagger.Bounce"
+        },
+        "mail": {
+          "$ref": "#/definitions/swagger.Mail"
+        }
+      },
+      "required": [
+        "mail",
+        "bounce"
+      ]
+    },
+    "swagger.Bounce": {
+      "properties": {
+        "bounceType": {
+          "type": "string"
+        }
+      }
+    },
+    "swagger.Mail": {
+      "properties": {
+        "messageId": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "destination": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

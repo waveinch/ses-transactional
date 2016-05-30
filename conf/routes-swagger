@@ -1,0 +1,57 @@
+
+### NoDocs ###
+GET     /                           controllers.HomeController.index
+
+###
+#  summary: Send emails
+#  parameters:
+#    - name: body
+#      required: true
+#      schema:
+#        $ref: "#/definitions/models.SendMailAction"
+#  responses:
+#    "200":
+#      description: 'Simple json with {"result": true | false}'
+###
+POST    /send                       controllers.MailerController.send
+
+###
+#  summary: Report bounce email
+#  parameters:
+#    - name: body
+#      required: true
+#      schema:
+#        $ref: "#/definitions/swagger.Message"
+#  responses:
+#    "200":
+#      description: Message received
+###
+POST    /bounce                     controllers.MailerController.bounce
+
+###
+#  summary: Report complaint email
+#  parameters:
+#    - name: body
+#      required: true
+#      schema:
+#        $ref: "#/definitions/swagger.Message"
+#  responses:
+#    "200":
+#      description: Message received
+###
+POST    /complaint                  controllers.MailerController.complaint
+
+###
+#  summary: Report success email
+#  parameters:
+#    - name: body
+#      required: true
+#      schema:
+#        $ref: "#/definitions/swagger.Message"
+#  responses:
+#    "200":
+#      description: Message received
+###
+POST    /success                    controllers.MailerController.success
+
+
