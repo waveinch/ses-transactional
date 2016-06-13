@@ -3,7 +3,7 @@ package services
 import javax.inject.Inject
 
 import play.api.Configuration
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 
 import scala.concurrent.Future
@@ -41,5 +41,15 @@ case class Feedback(
                      hashedMail:Seq[String],
                      timestamp:String
                    )
+
+object Feedback {
+  def fromMessage(msg:JsValue, reason:String) = Feedback(
+    reason = reason + (msg \ "bounce" \ "bounceType").asOpt[String].map(b => "-"+b).getOrElse(""),
+    mailId = (msg \ "mail" \ "messageId").as[String],
+    fromMail = (msg \ "mail" \ "source").as[String],
+    hashedMail = (msg \ "mail" \ "destination").as[Seq[String]].map(Hash.hashEmail),
+    timestamp = (msg \ "mail" \ "timestamp").as[String]
+  )
+}
 
 

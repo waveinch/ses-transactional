@@ -94,21 +94,21 @@ class MailerController @Inject()(
 
   def bounce() = Action.async{ r =>
     val msg = message(r.body.asText.get)
-    val feedback = message2Feedback(msg,"bounce")
+    val feedback = Feedback.fromMessage(msg,"bounce")
     println("bounce:" + msg)
     feedbackService.bounces(feedback).map{_ => Ok("received") }
   }
 
   def complaint() = Action.async{ r =>
     val msg = message(r.body.asText.get)
-    val feedback = message2Feedback(msg,"complaint")
+    val feedback = Feedback.fromMessage(msg,"complaint")
     println("complaint:" + msg)
     feedbackService.bounces(feedback).map{_ => Ok("received") }
   }
 
   def success() = Action.async{ r =>
     val msg = message(r.body.asText.get)
-    val feedback = message2Feedback(msg,"success")
+    val feedback = Feedback.fromMessage(msg,"success")
     println("success:" + msg)
     feedbackService.delivery(feedback).map{_ => Ok("received") }
   }
@@ -118,13 +118,7 @@ class MailerController @Inject()(
 
   private def message(body:String):JsValue = Json.parse((Json.parse(body) \ "Message").as[String])
 
-  private def message2Feedback(msg:JsValue,reason:String) = Feedback(
-    reason = reason + (msg \ "bounce" \ "bounceType").asOpt[String].map(b => "-"+b).getOrElse(""),
-    mailId = (msg \ "mail" \ "messageId").as[String],
-    fromMail = (msg \ "mail" \ "source").as[String],
-    hashedMail = (msg \ "mail" \ "destination").as[Seq[String]].map(Hash.hashEmail),
-    timestamp = (msg \ "mail" \ "timestamp").as[String]
-  )
+
 
 
 
