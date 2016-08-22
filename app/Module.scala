@@ -20,7 +20,7 @@ class Module extends AbstractModule with AkkaGuiceSupport {
   override def configure() = {
     bind(classOf[MailService]).to(classOf[SesService])
     bind(classOf[FeedbackService]).to(classOf[FeedbackServiceImpl])
-    bind(classOf[AuthService]).to(classOf[AuthServiceInsecure])
+    bind(classOf[AuthService]).to(classOf[AuthServiceImpl])
     bind(classOf[Ticker]).to(classOf[TickerImpl]).asEagerSingleton()
     bindActor[CampaignSupervisor](CampaignSupervisor.name)
   }

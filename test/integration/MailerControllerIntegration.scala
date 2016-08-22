@@ -1,6 +1,6 @@
 package integration
 
-import mocks.{AuthServiceMock, Samples}
+import mocks.{MailServiceMock, AuthServiceMock, Samples}
 import models.Formatters._
 import org.scalatestplus.play.OneAppPerSuite
 import play.api.Application
@@ -8,7 +8,7 @@ import play.api.inject.bind
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import services.{MailServiceMock, AuthService, MailService}
+import services.{AuthService, MailService}
 import traits.TestBuilder
 
 /**

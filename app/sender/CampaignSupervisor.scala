@@ -14,27 +14,39 @@ object CampaignSupervisor{
 
 class CampaignSupervisor extends Actor {
 
-  var campaigns:List[Campaign] = List()
+  var currentCampaign:Option[Campaign] = None
+  var queuedCampaigns:List[Campaign] = List()
 
   var workersSupervisor:ActorRef = context.actorOf(Props[WorkerSupervisor])
 
   override def receive: Receive = {
     case c:Campaign => {
-      campaigns = c :: campaigns
-      if(campaigns.length == 1) {
-        nextCampaign()
+
+      if(currentCampaign.isEmpty) {
+        println("Start first campaign")
+        currentCampaign = Some(c)
+        workersSupervisor ! c
+      } else {
+        println("Queue campaign")
+        queuedCampaigns = c :: queuedCampaigns
       }
     }
     case Tick => {
       workersSupervisor ! Tick
     }
-    case CampaignDone => nextCampaign()
+    case CampaignDone => {
+      println("Campaign Done")
+      nextCampaign()
+    }
   }
 
   def nextCampaign() = {
-    if(!campaigns.isEmpty) {
-      val next = campaigns.head
-      campaigns = campaigns.tail
+    currentCampaign = None
+    if(!queuedCampaigns.isEmpty) {
+      println("Send next Campaign")
+      val next = queuedCampaigns.head
+      queuedCampaigns = queuedCampaigns.tail
+      currentCampaign = Some(next)
       workersSupervisor ! next
     }
   }

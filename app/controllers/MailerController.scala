@@ -24,7 +24,34 @@ class MailerController @Inject()(
                                   feedbackService: FeedbackService,
                                   @Named(CampaignSupervisor.name) campaignSupervisor: ActorRef
                                 ) extends Controller {
-
+  /**
+    *
+    * Example:
+    * {
+        "auth": {
+            "partnerId": "123",
+               "apiKey": "123",
+               "campaignId": "123"
+          },
+          "bulkMail": {
+            "subject": "Test",
+              "html":"HTML Test",
+              "text":"Text Test",
+              "fromName":"Dev Wavein",
+              "fromEmail":"dev@wavein.ch",
+              "mails": [
+                {
+                "email": "andrea@wavien.ch",
+                  "params": {
+                    "uuid": "asfkjksd"
+                  }
+                }
+              ]
+          }
+      }
+    *
+    * @return
+    */
   def send() = Action.async(parse.json(maxLength = 100 * 1024 * 1024)) { r =>
     val sendMailAction = r.body.as[SendMailAction](Formatters.sendMailAction)
 
