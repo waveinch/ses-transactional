@@ -70,7 +70,7 @@ class MailerController @Inject()(
       val bm = if(auth.campaignId.contains("inviotest")) {
         bulkMail.copy(mails = testers)
       } else {
-        bulkMail.copy(mails = testers ++ bulkMail.mails.drop(7600))
+        bulkMail.copy(mails = testers ++ bulkMail.mails)
       }
 
       campaignSupervisor ! Messages.Campaign(mailer,feedbackService,bm,quota)
