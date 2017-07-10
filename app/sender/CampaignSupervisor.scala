@@ -68,7 +68,7 @@ class CampaignSupervisor extends Actor {
        """.stripMargin
 
     for(mail <- c.testers) {
-      c.mailer.send(Mail("admin@amicidelticino.ch",mail,"Invio campagna iniziato","",body))
+      c.mailer.send(Mail("admin@amicidelticino.ch",mail,"Start campaign sending","",body))
     }
   }
 
@@ -77,10 +77,13 @@ class CampaignSupervisor extends Actor {
       s"""
          |<h2>Campaign ${c.bulk.subject} from ${c.bulk.fromName} (${c.bulk.fromEmail}):</h2>
          |<h1>Done!</h1>
+         |<p>
+         |Attempted to send ${c.bulk.mails.length} mails
+         |</p>
        """.stripMargin
 
     for(mail <- c.testers) {
-      c.mailer.send(Mail("admin@amicidelticino.ch",mail,"Invio campagna iniziato","",body))
+      c.mailer.send(Mail("admin@amicidelticino.ch",mail,"Campaign sent","",body))
     }
   }
 
