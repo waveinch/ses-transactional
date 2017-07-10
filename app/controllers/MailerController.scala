@@ -66,14 +66,14 @@ class MailerController @Inject()(
       quota <- mailer.quota()
     } yield {
 
-      val testers = configuration.getStringSeq("adt.testers").get.map(m => MailParams(m, Map("uuid" -> "UUID-key")))
+      val testerParams = testers.map(m => MailParams(m, Map("uuid" -> "UUID-key")))
       val bm = if(auth.campaignId.contains("inviotest")) {
-        bulkMail.copy(mails = testers)
+        bulkMail.copy(mails = testerParams)
       } else {
-        bulkMail.copy(mails = testers ++ bulkMail.mails)
+        bulkMail.copy(mails = testerParams ++ bulkMail.mails)
       }
 
-      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,bm,quota)
+      campaignSupervisor ! Messages.Campaign(testers,mailer,feedbackService,bm,quota)
       Ok(Json.obj("result" -> true))
     }
 
@@ -86,32 +86,32 @@ class MailerController @Inject()(
 
   def sandboxSuccess(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkSuccess(num),quota)
+      campaignSupervisor ! Messages.Campaign(testers,mailer,feedbackService,Sandbox.bulkSuccess(num),quota)
       Ok("Campaign submitted")
     }
   }
 
   def sandboxBounce(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkBounce(num),quota)
+      campaignSupervisor ! Messages.Campaign(testers,mailer,feedbackService,Sandbox.bulkBounce(num),quota)
       Ok("Campaign submitted")
     }
   }
   def sandboxComplaint(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkComplaint(num),quota)
+      campaignSupervisor ! Messages.Campaign(testers,mailer,feedbackService,Sandbox.bulkComplaint(num),quota)
       Ok("Campaign submitted")
     }
   }
   def sandboxOOTO(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkOoto(num),quota)
+      campaignSupervisor ! Messages.Campaign(testers,mailer,feedbackService,Sandbox.bulkOoto(num),quota)
       Ok("Campaign submitted")
     }
   }
   def sandboxSuppression(num:Int) = Action.async{
     mailer.quota().map{ quota =>
-      campaignSupervisor ! Messages.Campaign(mailer,feedbackService,Sandbox.bulkSuppression(num),quota)
+      campaignSupervisor ! Messages.Campaign(testers,mailer,feedbackService,Sandbox.bulkSuppression(num),quota)
       Ok("Campaign submitted")
     }
   }
@@ -141,7 +141,7 @@ class MailerController @Inject()(
   }
 
 
-
+  private val testers = configuration.getStringSeq("adt.testers").get
 
   private def message(body:String):JsValue = Json.parse((Json.parse(body) \ "Message").as[String])
 

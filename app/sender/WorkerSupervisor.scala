@@ -1,9 +1,10 @@
 package sender
 
-import akka.actor.{Props, ActorRef, Actor}
+import akka.actor.{Actor, ActorRef, Props}
 import akka.actor.Actor.Receive
+import models.Mail
 import org.joda.time.DateTime
-import sender.Messages.{Tick, WorkDone, Job, Campaign}
+import sender.Messages.{Campaign, Job, Tick, WorkDone}
 
 /**
   * Created by unoedx on 06/05/16.
@@ -53,14 +54,14 @@ class WorkerSupervisor extends Actor {
   private def startJobs(c:Campaign) = {
 
     println("Start Job with quota:")
-    println("max 24h:" + c.quota.getMax24HourSend)
-    println("ratio:" + c.quota.getMaxSendRate)
+    println("max 24h:" + c.quota.daily)
+    println("ratio:" + c.quota.rate)
     println("mails:" + c.bulk.mails.length)
 
-    dailyLimit = c.quota.getMax24HourSend.toInt
+    dailyLimit = c.quota.daily
     counter = List()
 
-    val workersCount = 1*c.quota.getMaxSendRate
+    val workersCount = 1*c.quota.rate
     val mailsPerWorker = math.ceil(c.bulk.mails.length/workersCount).toInt
     println(mailsPerWorker + "mail to be processed by each worker")
     val mailChuncks = c.bulk.mails.grouped(mailsPerWorker).toList.filter(_.length > 0)
@@ -76,8 +77,11 @@ class WorkerSupervisor extends Actor {
       println("worker started")
     }
 
-    println("SendRate: " + c.quota.getMaxSendRate + " started ")
+    println("SendRate: " + c.quota.rate + " started ")
 
   }
+
+
+
 
 }

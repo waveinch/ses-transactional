@@ -1,8 +1,9 @@
 package sender
 
-import akka.actor.{ActorRef, Props, Actor}
+import akka.actor.{Actor, ActorRef, Props}
 import akka.actor.Actor.Receive
-import sender.Messages.{CampaignDone, Tick, Campaign}
+import models.Mail
+import sender.Messages.{Campaign, CampaignDone, Tick}
 
 /**
   * Created by unoedx on 06/05/16.
@@ -26,6 +27,7 @@ class CampaignSupervisor extends Actor {
         println("Start first campaign")
         currentCampaign = Some(c)
         workersSupervisor ! c
+        sendStartCampaignNotification(c)
       } else {
         println("Queue campaign")
         queuedCampaigns = c :: queuedCampaigns
@@ -36,6 +38,7 @@ class CampaignSupervisor extends Actor {
     }
     case CampaignDone => {
       println("Campaign Done")
+      currentCampaign.foreach(c => sendEndCampaignNotification(c))
       nextCampaign()
     }
   }
@@ -48,6 +51,36 @@ class CampaignSupervisor extends Actor {
       queuedCampaigns = queuedCampaigns.tail
       currentCampaign = Some(next)
       workersSupervisor ! next
+    }
+  }
+
+
+
+  private def sendStartCampaignNotification(c:Campaign): Unit = {
+    val body =
+      s"""
+         |<h2>Sending campaign ${c.bulk.subject} from ${c.bulk.fromName} (${c.bulk.fromEmail})</h2>
+         |<p>
+         |  Daily quota: ${c.quota.daily}
+         |  Mail/second: ${c.quota.rate}
+         |</p>
+         |<p>You should receive another notification mail when the campaign is done</p>
+       """.stripMargin
+
+    for(mail <- c.testers) {
+      c.mailer.send(Mail("admin@amicidelticino.ch",mail,"Invio campagna iniziato","",body))
+    }
+  }
+
+  private def sendEndCampaignNotification(c:Campaign): Unit = {
+    val body =
+      s"""
+         |<h2>Campaign ${c.bulk.subject} from ${c.bulk.fromName} (${c.bulk.fromEmail}):</h2>
+         |<h1>Done!</h1>
+       """.stripMargin
+
+    for(mail <- c.testers) {
+      c.mailer.send(Mail("admin@amicidelticino.ch",mail,"Invio campagna iniziato","",body))
     }
   }
 

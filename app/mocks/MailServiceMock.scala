@@ -2,8 +2,7 @@ package mocks
 
 import javax.inject.Inject
 
-import com.amazonaws.services.simpleemail.model.GetSendQuotaResult
-import models.{Mail, MailStatus}
+import models.{Mail, MailStatus, Quota}
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits._
 import services.MailService
@@ -29,13 +28,8 @@ class MailServiceMock @Inject()() extends MailService {
     }
   }
 
-  override def quota(): Future[GetSendQuotaResult] = Future{
-    val quota = new GetSendQuotaResult()
-
-    quota.setMax24HourSend(1000.0)
-    quota.setMaxSendRate(5.0)
-
-    quota
+  override def quota(): Future[Quota] = Future{
+    Quota(1000,5)
   }
 }
 

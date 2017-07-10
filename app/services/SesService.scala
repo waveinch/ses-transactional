@@ -2,12 +2,13 @@ package services
 
 import java.io.IOException
 import javax.inject.Inject
+
 import com.amazonaws.AmazonServiceException
 import com.amazonaws.auth.{AWSCredentials, BasicAWSCredentials}
 import com.amazonaws.services.simpleemail._
 import com.amazonaws.services.simpleemail.model._
 import com.amazonaws.regions._
-import models.{Mail, MailStatus}
+import models.{Mail, MailStatus, Quota}
 import play.api.{Configuration, Environment}
 
 import scala.concurrent.Future
@@ -53,8 +54,11 @@ class SesService  @Inject()(
     }
   }
 
-  override def quota(): Future[GetSendQuotaResult] = Future{
-     client.getSendQuota
+  override def quota(): Future[Quota] = Future{
+    val sesQuota = client.getSendQuota
+    val maxRate = conf.getInt("adt.maxRate").getOrElse(1000000)
+    val rate = math.min(maxRate,sesQuota.getMaxSendRate.toInt)
+    Quota(sesQuota.getMax24HourSend.toInt,rate)
   }
 
   override def sandbox: Boolean = conf.getBoolean("adt.sandbox").get

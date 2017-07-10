@@ -1,7 +1,6 @@
 package services
 
-import com.amazonaws.services.simpleemail.model.GetSendQuotaResult
-import models.{Mail, MailStatus}
+import models.{Mail, MailStatus, Quota}
 
 import scala.concurrent.Future
 
@@ -11,7 +10,7 @@ import scala.concurrent.Future
 trait MailService {
   def send(mail:Mail):Future[MailStatus]
 
-  def quota():Future[GetSendQuotaResult]
+  def quota():Future[Quota]
 
   def sandbox:Boolean
 
