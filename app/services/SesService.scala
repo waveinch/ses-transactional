@@ -1,10 +1,10 @@
 package services
 
 import java.io.IOException
-import javax.inject.Inject
 
+import javax.inject.Inject
 import com.amazonaws.AmazonServiceException
-import com.amazonaws.auth.{AWSCredentials, BasicAWSCredentials}
+import com.amazonaws.auth.{AWSStaticCredentialsProvider, BasicAWSCredentials}
 import com.amazonaws.services.simpleemail._
 import com.amazonaws.services.simpleemail.model._
 import com.amazonaws.regions._
@@ -20,10 +20,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class SesService  @Inject()(
                              conf: Configuration) extends MailService {
 
-  def credentials:BasicAWSCredentials = new BasicAWSCredentials(System.getenv("SES_KEY"),System.getenv("SES_SECRET"))
+  def key = System.getenv("SES_KEY")
+  def secret = System.getenv("SES_SECRET")
 
-  val REGION: Region = Region.getRegion(Regions.EU_WEST_1)
-  val client: AmazonSimpleEmailServiceClient = new AmazonSimpleEmailServiceClient(credentials).withRegion(REGION)
+  def credentials = new AWSStaticCredentialsProvider(new BasicAWSCredentials(key, secret))
+
+  val client: AmazonSimpleEmailService = AmazonSimpleEmailServiceClient.builder()
+    .withRegion(Regions.EU_WEST_1)
+    .withCredentials(credentials)
+    .build()
+
 
 
   @throws(classOf[IOException])
