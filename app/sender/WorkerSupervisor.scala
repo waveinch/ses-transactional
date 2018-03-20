@@ -62,8 +62,8 @@ class WorkerSupervisor extends Actor {
     counter = List()
 
     val workersCount = 1*c.quota.rate
-    val mailsPerWorker = math.ceil(c.bulk.mails.length/workersCount).toInt
-    println(mailsPerWorker + "mail to be processed by each worker")
+    val mailsPerWorker = math.max(1,math.ceil(c.bulk.mails.length/workersCount).toInt)
+    println(mailsPerWorker + " mail to be processed by each worker")
     val mailChuncks = c.bulk.mails.grouped(mailsPerWorker).toList.filter(_.length > 0)
 
     println(mailChuncks.length + "workers")
